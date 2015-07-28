@@ -1,0 +1,14 @@
+*.rbc
+*.sassc
+.sass-cache
+.rspec
+.rvmrc
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+.project
+.DS_Store
+.LSOverride
+/Gemfile.lock
