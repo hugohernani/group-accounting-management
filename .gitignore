@@ -11,4 +11,5 @@
 .project
 .DS_Store
 .LSOverride
-/Gemfile.lock
+
+Gemfile.lock
