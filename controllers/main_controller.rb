@@ -3,7 +3,8 @@ class MainController < Sinatra::Base
 
   use Rack::Session::Cookie,
     :key => "rack.session",
-    :path => "/"
+    :path => "/",
+    :secret => "that_is_for_test_TODO"
 
 
   helpers Main::Helpers
