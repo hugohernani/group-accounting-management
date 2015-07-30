@@ -9,6 +9,7 @@ gem 'dm-migrations'
 gem 'dm-aggregates'
 gem 'dm-postgres-adapter'
 gem 'dm-types'
+gem 'dm-timestamps'
 
 
 group :development, :test do
