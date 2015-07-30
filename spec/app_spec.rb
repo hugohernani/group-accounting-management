@@ -2,12 +2,12 @@ require File.join(File.dirname(__FILE__), '/spec_helper')
 
 set :environment, :test
 
-describe "App Test" do
-  include Rack::Test::Methods
+def app
+  app = AppController
+end
 
-  def app
-    app = AppController
-  end
+describe app do
+  include Rack::Test::Methods
 
   # Do a root test
   it "should (be_ok|receive 200) on /" do

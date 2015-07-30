@@ -11,6 +11,9 @@ gem 'dm-postgres-adapter'
 gem 'dm-types'
 gem 'dm-timestamps'
 gem 'dm-validations'
+gem 'mini_magick'
+gem 'carrierwave-datamapper'
+gem 'rmagick'
 
 group :development, :test do
   gem 'dm-sqlite-adapter'

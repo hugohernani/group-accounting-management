@@ -5,7 +5,7 @@ class Group
   property :updated_at, DateTime
 
   property :name, String
-  property :description, String
+  property :description, Text
 
   has n, :users, :required => true
 end

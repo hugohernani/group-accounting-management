@@ -5,7 +5,7 @@ class User
   property :updated_at, DateTime
 
   property :username, String, :required => true, :length => 1..100
-  property :password, String, :required => true, :length => 1..100
+  property :password, BCryptHash, :required => true, :length => 1..100
   property :email, String, :required => true, :unique => true,
     :format => :email_address,
     :messages => {
@@ -15,14 +15,15 @@ class User
     }
 
   attr_accessor :password_confirmation
-  attr_accessor :email_repeated
 
   #validations
-  validates_confirmation_of :password
-  validates_confirmation_of :email, :confirm => :email_repeated
+
+  ## By convention the pattern is FIELD_NAME_confirmation.
+  validates_confirmation_of :password, :confirm => :password_confirmation
 
   has 1, :profile, :required => false
-  has n, :posts, :required => false
+  has n, :notifications, :child_key => [:posts],
+         :via => :post, :required => false
   belongs_to :group, :required => false
 end
 
