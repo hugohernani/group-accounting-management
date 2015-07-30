@@ -1,7 +1,3 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-timestamps'
-
 class User
   include DataMapper::Resource
   property :id, Serial
@@ -30,8 +26,6 @@ class User
   belongs_to :group, :required => false
 end
 
-User.finalize
-
 class Profile
   include DataMapper::Resource
   property :id, Serial
@@ -44,5 +38,3 @@ class Profile
 
   belongs_to :user
 end
-
-Profile.finalize

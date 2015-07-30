@@ -56,6 +56,8 @@ GEM
     dm-sqlite-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_sqlite3 (~> 0.10.6)
+    dm-timestamps (1.2.0)
+      dm-core (~> 1.2.0)
     dm-types (1.2.2)
       bcrypt-ruby (~> 3.0)
       dm-core (~> 1.2.0)
@@ -64,6 +66,8 @@ GEM
       multi_json (~> 1.0)
       stringex (~> 1.4)
       uuidtools (~> 2.1)
+    dm-validations (1.2.0)
+      dm-core (~> 1.2.0)
     do_postgres (0.10.16)
       data_objects (= 0.10.16)
     do_sqlite3 (0.10.16)
@@ -181,7 +185,9 @@ DEPENDENCIES
   dm-migrations
   dm-postgres-adapter
   dm-sqlite-adapter
+  dm-timestamps
   dm-types
+  dm-validations
   foreman
   guard
   guard-rspec

@@ -10,7 +10,7 @@ gem 'dm-aggregates'
 gem 'dm-postgres-adapter'
 gem 'dm-types'
 gem 'dm-timestamps'
-
+gem 'dm-validations'
 
 group :development, :test do
   gem 'dm-sqlite-adapter'

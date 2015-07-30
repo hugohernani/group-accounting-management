@@ -1,7 +1,3 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-timestamps'
-
 class Post
   include DataMapper::Resource
   property :id, Serial
@@ -9,9 +5,9 @@ class Post
   property :description, Text
   property :created_at, DateTime
   property :updated_at, DateTime
-  property :public, Boolean, :default
+  property :public, Boolean
 
-  has n, :sharing_with, :through => :userposts, :required => false
+  has n, :users, :child_key => [:sharing_with], :required => false
   has 1, :media, :required => false
 
   #validations
@@ -27,18 +23,14 @@ class Post
 
 end
 
-class UserPost
-  include DataMapper::Resource
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-  belongs_to :sharing_with, "User"
-  belongs_to :post
-end
-
-UserPost.finalize
-
-Post.finalize
+# class UserPost
+#   include DataMapper::Resource
+#   property :created_at, DateTime
+#   property :updated_at, DateTime
+#
+#   belongs_to :sharing_with, "User"
+#   belongs_to :post
+# end
 
 class Supply < Post
   property :label, String
@@ -48,38 +40,27 @@ class Supply < Post
 
 end
 
-Supply.finalize
-
 class Chore < Post
 	property :date_limit, DateTime
 	property :priority, Enum[ :it_is_needed, :it_would_help, :just_do_it, :complete ]
 
-  has n, :responsibles, "" :through => :userchores, :required => false
+  has n, :users, :child_key => [:responsibles], :required => true
 end
 
-class UserChore
-  include DataMapper::Resource
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-
-  belongs_to :responsibles, "User"
-  belongs_to :chore
-end
-
-UserChore.finalize
-
-Chore.finalize
+# class UserChore
+#   include DataMapper::Resource
+#   property :created_at, DateTime
+#   property :updated_at, DateTime
+#
+#
+#   belongs_to :users, :child_key => [:responsibles]
+#   belongs_to :chore
+# end
 
 class Bill < Post
   property :value, Integer
   property :status, Enum[ :waiting, :in_debt, :paid ]
 end
 
-Bill.finalize
-
-
 class Payment < Post
 end
-
-Payment.finalize

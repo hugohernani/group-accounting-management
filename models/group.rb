@@ -1,8 +1,3 @@
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-timestamps'
-
-
 class Group
   include DataMapper::Resource
   property :id, Serial
@@ -12,7 +7,5 @@ class Group
   property :name, String
   property :description, String
 
-  has n, :users, required => true
+  has n, :users, :required => true
 end
-
-Group.finalize
