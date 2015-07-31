@@ -14,16 +14,9 @@ class User
       :format    => "It doesn't look like a email address."
     }
 
-  attr_accessor :password_confirmation
 
-  #validations
-
-  ## By convention the pattern is FIELD_NAME_confirmation.
-  validates_confirmation_of :password, :confirm => :password_confirmation
-
-  has 1, :profile, :required => false
-  has n, :notifications, :child_key => [:posts],
-         :via => :post, :required => false
+  has 1, :profile
+  has n, :notifications, :child_key => [:posts]
   belongs_to :group, :required => false
 end
 
@@ -37,5 +30,5 @@ class Profile
   property :second_name, String, :required => false, :length => 1..100
   property :birthday, Date, :required => false
 
-  belongs_to :user
+  belongs_to :user, :required => true
 end

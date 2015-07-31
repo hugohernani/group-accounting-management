@@ -4,16 +4,11 @@ ruby '2.1.5'
 gem 'sinatra'
 gem "i18n"
 gem "json"
-gem 'dm-core'
-gem 'dm-migrations'
-gem 'dm-aggregates'
-gem 'dm-postgres-adapter'
-gem 'dm-types'
-gem 'dm-timestamps'
-gem 'dm-validations'
+gem 'data_mapper'
 gem 'mini_magick'
 gem 'carrierwave-datamapper'
 gem 'rmagick'
+gem 'grape'
 
 group :development, :test do
   gem 'dm-sqlite-adapter'

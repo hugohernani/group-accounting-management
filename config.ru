@@ -3,14 +3,13 @@ require 'bundler'
 Bundler.require
 
 # requirement for datamapper models
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-timestamps'
-require 'dm-validations'
+require 'data_mapper'
 
 Dir.glob('./{models,modules,helpers,controllers}/*.rb').each do |file|
   require file
 end
+
+require File.join('./controllers', 'api', 'api')
 
 DataMapper.finalize
 
@@ -19,4 +18,4 @@ ENV['RACK_ENV'] ||= 'development'
 DataMapper.setup(:default, ENV['DATABASE_URL'] ||
                            "sqlite:///#{Dir.pwd}/db/#{ENV['RACK_ENV']}.db")
 
-map('/') { run AppController }
+map('/') { run Rack::Cascade.new [AppController, MyApi] }
