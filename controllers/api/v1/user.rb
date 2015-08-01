@@ -15,11 +15,12 @@ module API
 
         desc 'Return a user.'
         params do
-          requires :username, type: String, desc: "Username."
+          requires :id, type: Integer, desc: "Id."
         end
-        route_param :username do
+        route_param :id do
           get do
-            User.first(params[:username])
+            user = User.get(params[:id])
+            user.nil? ? {:errors => ["User not found"]} : user
           end
         end
 
@@ -30,6 +31,7 @@ module API
           requires :email, type: String, desc: "Email address"
         end
         post do
+          res = {errors:[]}
           user = User.first(:username => params[:username])
           if user.nil?
             user = User.new()
@@ -37,29 +39,38 @@ module API
             user.password = params[:password]
             user.email = params[:email]
             saved = user.save
+          else
+            res[:errors].push("User already exists")
           end
-          user.attributes
+          res[:errors].empty? ? user.attributes : res
         end
 
         desc 'Update user password'
         params do
           requires :new_password, type: String, desc: "New password"
         end
-        put ":username" do
-          user = User.first(:username => params[:username])
-          if user
-            user.password = params[:new_password]
-            user.save
+        route_param :id do
+          res = {success:[], errors:[]}
+          put do
+            user = User.first(:id => params[:id])
+            unless user.nil?
+              user.password = params[:new_password]
+              saved = user.save
+              saved ? res[:success].push("User updated") : res[:errros].push("User not updated")
+            else
+              res[:errors].push("User not found")
+            end
+            res
           end
         end
 
         desc "Delete a user."
         params do
-          requires :username, type: String, desc: "username"
+          requires :id, type: Integer, desc: "id"
         end
-
-        delete ':username' do
-          User.first(:username => params[:username]).destroy
+        delete ':id' do
+          deleted = User.get(params[:id]).destroy
+          deleted ? deleted : {:errors => ["User not deleted"]}
         end
 
       end

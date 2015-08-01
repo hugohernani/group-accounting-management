@@ -18,24 +18,25 @@ class Post
   property :id, Serial
   property :title, String
   property :description, Text
+
   property :created_at, DateTime
   property :updated_at, DateTime
-  property :public, Boolean
 
-  has n, :notifications, :child_key => [:sharing_with],
-         :via => :user, :required => false
-  has 1, :media, :required => false
+  property :public, Boolean, :required => false
+
+  has n, :notifications, :child_key => [:users]
+  has 1, :media
 
   #validations
-  validates_with_method :public, :method => :check_sharings
-
-  def check_sharings
-    unless self.notifications.empty?
-      self.public = true
-    else
-      self.public = false
-    end
-  end
+  # validates_with_method :public, :method => :check_sharings
+  #
+  # def check_sharings
+  #   unless self.notifications.empty?
+  #     self.public = true
+  #   else
+  #     self.public = false
+  #   end
+  # end
 
 end
 
@@ -93,5 +94,5 @@ class Payment < Post
   property :limit_date, DateTime, :required => false
 
   # TODO Lots of other fields.
-  
+
 end
